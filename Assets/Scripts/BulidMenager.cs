@@ -8,12 +8,19 @@ public class BulidMenager : MonoBehaviour {
     public Camera cam;
     GameObject Model;
     BuildMenager.Build Current;
+    Budget budget;
+
+    private void Start()
+    {
+        budget = GameObject.Find("HUD").GetComponent<Budget>();
+    }
 
     private void OnEnable()
     {
         Current = GameObject.Find("HUD").GetComponent<BuildMenager>().CurrentBuild;
         GameObject GO = (GameObject)Instantiate(Current.Model, new Vector3(0, -1, 0), Quaternion.identity);
         Model = GO;
+
     }
 
 
@@ -25,12 +32,15 @@ public class BulidMenager : MonoBehaviour {
         {
             if (Model != null)
             {
-                if (Vector3.Distance(transform.position, HitInfo.point) < 5)
+                if (Vector3.Distance(transform.position, HitInfo.point) < 4)
                 {
                     Model.GetComponent<MeshRenderer>().enabled = true;
                     Model.transform.position = new Vector3(Mathf.RoundToInt(HitInfo.point.x), 1, Mathf.RoundToInt(HitInfo.point.z));
-                    if (Input.GetMouseButtonDown(0))
-                    { Instantiate(Current.Prefab, Model.transform.position, Quaternion.identity);/*Budget-=BuildManager.currentBuild.cost;*/ }
+                    if (Input.GetMouseButtonDown(0) && budget.Value>=Current.Cost)
+                    {
+                        Instantiate(Current.Prefab, Model.transform.position, Quaternion.identity);
+                        GameObject.Find("HUD").SendMessage("ChangeValue", -Current.Cost);
+                    }
                 }
                 else
                 {

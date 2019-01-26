@@ -6,7 +6,12 @@ using UnityEngine.UI;
 public class Budget : MonoBehaviour {
 
     public Text Present;
-    int Value;
+    public int Value;
+
+    private void Start()
+    {
+        Value = int.Parse(Present.text);
+    }
 
     void ChangeValue(int delta)
     {
