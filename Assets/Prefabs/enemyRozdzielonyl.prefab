@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 114739091680425498}
   - component: {fileID: 54043733578502946}
   - component: {fileID: 95861393361180548}
+  - component: {fileID: 65388229231595720}
   m_Layer: 0
   m_Name: enemyRozdzielonyl
   m_TagString: Untagged
@@ -186,8 +187,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1015825108820970}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 10.9, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.18182087, y: -0.087, z: 0.951}
+  m_LocalScale: {x: 0.51695937, y: 0.51695937, z: 0.51695937}
   m_Children:
   - {fileID: 4842204280700118}
   - {fileID: 4241678570604748}
@@ -422,6 +423,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 48
   m_CollisionDetection: 0
+--- !u!65 &65388229231595720
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1015825108820970}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.3814856, z: 1.1085781}
+  m_Center: {x: 0, y: 0.30682018, z: 0.04301165}
 --- !u!95 &95861393361180548
 Animator:
   serializedVersion: 3
