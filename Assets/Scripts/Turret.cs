@@ -8,10 +8,26 @@ public class Turret : MonoBehaviour {
     public GameObject rotateBase;
 
     public GameObject target;
+    public float range = 10f;
 
     private void Update()
     {
-        this.LookAtTarget(target.transform.position);
+        float Dist = Mathf.Infinity;
+        Collider[] Obj = Physics.OverlapSphere(transform.position, range);
+        foreach (Collider k in Obj)
+        {
+            if (Vector3.Distance(k.transform.position, transform.position) < Dist)
+            {
+                if (k.tag == "Enemy")
+                {
+                    Dist = Vector3.Distance(k.transform.position, transform.position);
+                    target = k.gameObject;
+                }
+            }
+        }
+
+        if(target != null) this.LookAtTarget(target.transform.position);
+
     }
 
 

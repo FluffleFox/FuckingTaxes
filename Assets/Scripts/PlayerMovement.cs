@@ -21,9 +21,11 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
         {
             float angle = Mathf.RoundToInt(Mathf.Atan2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * Mathf.Rad2Deg /90f)*90f;
-            transform.rotation = Quaternion.Euler(-90, 0, angle);
+            transform.rotation = Quaternion.Euler(0, angle,0);
             RB.MovePosition(transform.position + transform.right * speed * Time.deltaTime);
+            GetComponent<Animator>().SetBool("walk", true);
         }
+        else { GetComponent<Animator>().SetBool("walk", false); }
         if (Sejf == null) { Debug.Log("GameOver"); }
     }
 

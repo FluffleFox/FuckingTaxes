@@ -17,18 +17,22 @@ public class Tower : MonoBehaviour {
     }
 
     void Update () {
-        if (Target == null)
+
+        float Dist=Mathf.Infinity;
+        Collider[] Obj = Physics.OverlapSphere(transform.position, Range);
+        foreach (Collider k in Obj)
         {
-            Collider[] Obj = Physics.OverlapSphere(transform.position, Range);
-            foreach(Collider k in Obj)
+            if(Vector3.Distance(k.transform.position, transform.position) < Dist)
             {
-                if (k.tag == "Enemy") { Target = k.transform; }
+                Dist = Vector3.Distance(k.transform.position, transform.position);
+                Target = k.gameObject.transform;
             }
         }
-        else
+
+        if (Target != null)
         {
             RaycastHit Hitinfo;
-            if (Physics.Raycast(new Ray(transform.position, Target.position-transform.position), out Hitinfo, Range))
+            if (Physics.Raycast(new Ray(transform.position, Target.position - transform.position), out Hitinfo, Range))
             {
                 if (Hitinfo.collider.gameObject.tag == "Enemy" && reload <= 0)
                 {
@@ -36,7 +40,7 @@ public class Tower : MonoBehaviour {
                     Target.SendMessage("GetDmg", DMG); reload = Reload;
                 }
             }
-            transform.rotation = Quaternion.Slerp(transform.rotation,Quaternion.LookRotation(Target.position-transform.position), 5 * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Target.position - transform.position), 5 * Time.deltaTime);
             if (reload > 0) { reload -= Time.deltaTime; }
             if (Vector3.Distance(transform.position, Target.position) > Range) { Target = null; }
         }

@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour {
 
     Vector3[] path;
     Vector3 Target;
-    int WayPoint = 0;
+    int WayPoint = 1;
     int I = 1;
 
     public float Speed=5;
@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour {
         Astar = GameObject.Find("AstarMenager").GetComponent<Grid>();
         path=Astar.GetPath(transform.position, Target);
         Player = GameObject.Find("Player").transform;
-
+        GetComponent<Animator>().SetBool("walk", true);
     }
 	
 	// Update is called once per frame
@@ -36,12 +36,12 @@ public class Enemy : MonoBehaviour {
             if (Vector3.Distance(transform.position, Player.position) > 2f)
             { path = Astar.GetPath(transform.position, Player.position); }
         }
-        transform.rotation = Quaternion.Euler(-90, 0, Mathf.Atan2(path[WayPoint].y - path[WayPoint-1].y, path[WayPoint].x - path[WayPoint-1].x) * Mathf.Rad2Deg);//Quaternion.LookRotation(path[WayPoint] - transform.position);
+        //transform.rotation = Quaternion.Euler(-90, 0, Mathf.Atan2(path[WayPoint].y - path[WayPoint-1].y, path[WayPoint].x - path[WayPoint-1].x) * Mathf.Rad2Deg);//Quaternion.LookRotation(path[WayPoint] - transform.position);
         Vector3 Translation = path[WayPoint] - transform.position;
         Translation = new Vector3(Translation.x, 0, Translation.z);
         Translation.Normalize();
         transform.Translate(Translation * Speed * Time.deltaTime, Space.World);
-		if(Vector3.Distance(transform.position, path[WayPoint]) < 1.2f)
+		if(Vector3.Distance(transform.position, path[WayPoint]) < 1.1f)
         {
             I++;
             if (I >= path.Length && !HunterMode)
@@ -51,6 +51,7 @@ public class Enemy : MonoBehaviour {
                     k.SendMessage("ChangeMode", false);
                 }
                 GameObject.Find("Spawner").GetComponent<WaveSpawner>().EnemiesAlive--;
+
                 Destroy(gameObject);
             }
             else if (I >= path.Length && HunterMode)
