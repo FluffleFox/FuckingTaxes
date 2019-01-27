@@ -22,6 +22,13 @@ ModelImporter:
     400014: Cube.007
     400016: //RootNode
     2100000: No Name
+    2100002: Material.004
+    2100004: Material.007
+    2100006: Material.006
+    2100008: Material
+    2100010: Material.003
+    2100012: Material.005
+    2100014: Material.002
     2300000: Cube
     2300002: Cube.001
     2300004: Cube.002
@@ -126,6 +133,7 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
