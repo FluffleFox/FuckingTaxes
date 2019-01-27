@@ -11,7 +11,12 @@ public class Tower : MonoBehaviour {
     public float Range;
     Transform Target;
 
-	void Update () {
+    private void Start()
+    {
+        reload = Reload;
+    }
+
+    void Update () {
         if (Target == null)
         {
             Collider[] Obj = Physics.OverlapSphere(transform.position, Range);
@@ -23,7 +28,7 @@ public class Tower : MonoBehaviour {
         else
         {
             RaycastHit Hitinfo;
-            if (Physics.Raycast(new Ray(transform.position, transform.forward), out Hitinfo, Range))
+            if (Physics.Raycast(new Ray(transform.position, Target.position-transform.position), out Hitinfo, Range))
             {
                 if (Hitinfo.collider.gameObject == Target.gameObject && reload <= 0)
                 { Target.SendMessage("GetDmg", DMG); reload = Reload; }

@@ -36,11 +36,13 @@ public class BulidMenager : MonoBehaviour {
                 {
                     Model.GetComponent<MeshRenderer>().enabled = true;
                     Model.transform.position = new Vector3(Mathf.RoundToInt(HitInfo.point.x), 1, Mathf.RoundToInt(HitInfo.point.z));
-                    if (Input.GetMouseButtonDown(0) && budget.Value>=Current.Cost)
+                    if (Input.GetMouseButtonDown(0) && budget.Value>=Current.Cost && !Physics.CheckBox(Model.transform.position, Vector3.one * 0.3f, Quaternion.Euler(Vector3.zero)))
                     {
                         Instantiate(Current.Prefab, Model.transform.position, Quaternion.identity);
                         GameObject.Find("HUD").SendMessage("ChangeValue", -Current.Cost);
+                       
                     }
+                    //Debug.Log();
                 }
                 else
                 {

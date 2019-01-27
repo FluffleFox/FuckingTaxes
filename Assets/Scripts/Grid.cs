@@ -31,7 +31,7 @@ public class Grid : MonoBehaviour
             for (int y = 0; y < gridSizeY; y++)
             {
                 Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
-                bool walkable = !(Physics.CheckSphere(worldPoint, nodeRadius/4.0f, unwalkableMask));
+                bool walkable = !(Physics.CheckBox(worldPoint, new Vector3(0.45f,2f,0.45f), Quaternion.Euler(0,0,0), unwalkableMask));
                 grid[x, y] = new Node(walkable, worldPoint, x, y);
             }
         }
@@ -64,8 +64,8 @@ public class Grid : MonoBehaviour
 
     public Node NodeFromWorldPoint(Vector3 worldPosition)
     {
-        float percentX = (worldPosition.x + gridWorldSize.x / 2) / gridWorldSize.x;
-        float percentY = (worldPosition.z + gridWorldSize.y / 2) / gridWorldSize.y;
+        float percentX = ((worldPosition.x-0.5f) + gridWorldSize.x / 2) / gridWorldSize.x;
+        float percentY = ((worldPosition.z-0.5f) + gridWorldSize.y / 2) / gridWorldSize.y;
         percentX = Mathf.Clamp01(percentX);
         percentY = Mathf.Clamp01(percentY);
 
@@ -90,5 +90,17 @@ public class Grid : MonoBehaviour
                 Gizmos.DrawCube(n.worldPosition, Vector3.one * (nodeDiameter - .1f));
             }
         }
+    }
+
+    public Vector3[] GetPath(Vector3 Start, Vector3 End)
+    {
+        GetComponent<PathFinding>().FindPath(Start, End);
+        path.ToArray();
+        Vector3[] ret = new Vector3[path.Count];
+        for(int i=0; i<path.Count; i++)
+        {
+            ret[i] = path[i].worldPosition;
+        }
+        return ret;
     }
 }
