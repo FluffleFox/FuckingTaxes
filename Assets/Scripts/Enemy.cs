@@ -12,14 +12,27 @@ public class Enemy : MonoBehaviour {
     public float Speed=5;
     public float HP=3;
 
+    bool HunterMode = false;
+    Transform Player;
+
+    Grid Astar;
+
 	// Use this for initialization
 	void Start () {
         Target = GameObject.Find("Sejf").transform.position;
-        path = GameObject.Find("AstarMenager").GetComponent<Grid>().GetPath(transform.position, Target);
-	}
+        Astar = GameObject.Find("AstarMenager").GetComponent<Grid>();
+        path=Astar.GetPath(transform.position, Target);
+        Player = GameObject.Find("Player").transform;
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
+        if (HunterMode)
+        {
+            if (Vector3.Distance(transform.position, Player.position) > 2f)
+            { path = Astar.GetPath(transform.position, Player.position); }
+        }
         transform.rotation = Quaternion.Euler(-90, 0, Mathf.Atan2(path[WayPoint].y - transform.position.y, path[WayPoint].x - transform.position.x) * Mathf.Rad2Deg);//Quaternion.LookRotation(path[WayPoint] - transform.position);
         Vector3 Translation = path[WayPoint] - transform.position;
         Translation = new Vector3(Translation.x, 0, Translation.z);
@@ -28,9 +41,18 @@ public class Enemy : MonoBehaviour {
 		if(Vector3.Distance(transform.position, path[WayPoint]) < 1.1f)
         {
             I++;
-            if (I >= path.Length)
-            { Destroy(gameObject); }
-            WayPoint = I;
+            if (I >= path.Length && !HunterMode)
+            {
+                foreach (GameObject k in GameObject.FindGameObjectsWithTag("Enemy"))
+                {
+                    k.SendMessage("ChangeMode", false);
+                }
+                Destroy(gameObject);
+            }
+            else if (I >= path.Length && HunterMode)
+            { WayPoint = 0;  path[0] = Player.position; }
+            else
+            { WayPoint = I; }
         }
     }
 
@@ -41,9 +63,14 @@ public class Enemy : MonoBehaviour {
             other.transform.parent = this.transform;
             other.GetComponent<Collider>().enabled = false;
             other.transform.localPosition = new Vector3(0, 0, 0.5f);
+            foreach (GameObject k in GameObject.FindGameObjectsWithTag("Enemy"))
+            {
+                if (k.transform.childCount == 0)
+                { k.SendMessage("ChangeMode", true); }
+            }
         }
         Target = new Vector3(Mathf.Sign(Random.Range(-1.0f, 1.0f)) * 10, 0, Mathf.Sign(Random.Range(-1.0f, 1.0f)) * 10);
-        path = GameObject.Find("AstarMenager").GetComponent<Grid>().GetPath(transform.position, Target);
+        path = Astar.GetPath(transform.position, Target);
         I = 0;
         WayPoint = 0;
     }
@@ -67,5 +94,17 @@ public class Enemy : MonoBehaviour {
             }
             Destroy(gameObject);
         }
+    }
+
+    void ChangeMode(bool mode)
+    {
+        HunterMode = mode;
+        if (!HunterMode)
+        {
+            Target = new Vector3(Mathf.Sign(Random.Range(-1.0f, 1.0f)) * 10, 0, Mathf.Sign(Random.Range(-1.0f, 1.0f)) * 10);
+            path = Astar.GetPath(transform.position, Target);
+        }
+        I = 0;
+        WayPoint = 0;
     }
 }
