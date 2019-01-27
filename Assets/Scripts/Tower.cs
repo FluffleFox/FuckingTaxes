@@ -30,8 +30,11 @@ public class Tower : MonoBehaviour {
             RaycastHit Hitinfo;
             if (Physics.Raycast(new Ray(transform.position, Target.position-transform.position), out Hitinfo, Range))
             {
-                if (Hitinfo.collider.gameObject == Target.gameObject && reload <= 0)
-                { Target.SendMessage("GetDmg", DMG); reload = Reload; }
+                if (Hitinfo.collider.gameObject.tag == "Enemy" && reload <= 0)
+                {
+                    Target = Hitinfo.collider.gameObject.transform;
+                    Target.SendMessage("GetDmg", DMG); reload = Reload;
+                }
             }
             transform.rotation = Quaternion.Slerp(transform.rotation,Quaternion.LookRotation(Target.position-transform.position), 5 * Time.deltaTime);
             if (reload > 0) { reload -= Time.deltaTime; }

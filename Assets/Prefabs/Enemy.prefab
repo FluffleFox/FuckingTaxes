@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 64720653741711784}
   - component: {fileID: 54520442680225142}
   - component: {fileID: 114264634049698316}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -126,5 +126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b15cb5d7c958b3469103a19778a8303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 3
+  Speed: 1
   HP: 3
+  Reward: 50
+  RewardModel: {fileID: 1980638721808616, guid: 6604f6038afabb04fab14e4a0bc3fd5c,
+    type: 2}

@@ -7,6 +7,8 @@ public class BulidMenager : MonoBehaviour {
     
     public Camera cam;
     GameObject Model;
+    public Material Correct;
+    public Material Incorrect;
     BuildMenager.Build Current;
     Budget budget;
 
@@ -32,11 +34,11 @@ public class BulidMenager : MonoBehaviour {
         {
             if (Model != null)
             {
-                if (Vector3.Distance(transform.position, HitInfo.point) < 4)
+                if (Vector3.Distance(transform.position, HitInfo.point) < 4 && !Physics.CheckBox(new Vector3(Mathf.RoundToInt(HitInfo.point.x), 1, Mathf.RoundToInt(HitInfo.point.z)), Vector3.one * 0.3f, Quaternion.Euler(Vector3.zero)))
                 {
-                    Model.GetComponent<MeshRenderer>().enabled = true;
+                    Model.GetComponent<MeshRenderer>().material = Correct;
                     Model.transform.position = new Vector3(Mathf.RoundToInt(HitInfo.point.x), 1, Mathf.RoundToInt(HitInfo.point.z));
-                    if (Input.GetMouseButtonDown(0) && budget.Value>=Current.Cost && !Physics.CheckBox(Model.transform.position, Vector3.one * 0.3f, Quaternion.Euler(Vector3.zero)))
+                    if (Input.GetMouseButtonDown(0) && budget.Value>=Current.Cost)
                     {
                         Instantiate(Current.Prefab, Model.transform.position, Quaternion.identity);
                         GameObject.Find("HUD").SendMessage("ChangeValue", -Current.Cost);
@@ -46,7 +48,8 @@ public class BulidMenager : MonoBehaviour {
                 }
                 else
                 {
-                    Model.GetComponent<MeshRenderer>().enabled = false;
+                    Model.GetComponent<MeshRenderer>().material = Incorrect;
+                    Model.transform.position = new Vector3(Mathf.RoundToInt(HitInfo.point.x), 1, Mathf.RoundToInt(HitInfo.point.z));
                 }
             }
         }

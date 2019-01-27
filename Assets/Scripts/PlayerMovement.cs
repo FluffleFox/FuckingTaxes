@@ -7,9 +7,13 @@ public class PlayerMovement : MonoBehaviour {
     Rigidbody RB;
     public float speed = 5f;
     float root;
+    Vector3 SavePos;
+    GameObject Sejf;
     private void Start()
     {
         RB = GetComponent<Rigidbody>();
+        Sejf = GameObject.Find("Sejf");
+        SavePos = GameObject.Find("Sejf").transform.position;
     }
 
 
@@ -19,6 +23,24 @@ public class PlayerMovement : MonoBehaviour {
             float angle = Mathf.RoundToInt(Mathf.Atan2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * Mathf.Rad2Deg /90f)*90f;
             transform.rotation = Quaternion.Euler(-90, 0, angle);
             RB.MovePosition(transform.position + transform.right * speed * Time.deltaTime);
+        }
+        if (Sejf == null) { Debug.Log("GameOver"); }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Finish")
+        {
+            other.transform.position = SavePos;
+            foreach (GameObject k in GameObject.FindGameObjectsWithTag("Enemy"))
+            {
+                k.SendMessage("Start");
+            }
+        }
+        if (other.tag == "Money")
+        {
+            GameObject.Find("HUD").SendMessage("ChangeValue", int.Parse(other.name));
+            Destroy(other.gameObject);
         }
     }
 }

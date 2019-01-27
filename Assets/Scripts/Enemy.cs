@@ -7,10 +7,13 @@ public class Enemy : MonoBehaviour {
     Vector3[] path;
     Vector3 Target;
     int WayPoint = 0;
-    int I = 0;
+    int I = 1;
 
     public float Speed=5;
     public float HP=3;
+    public string Reward;
+    public GameObject RewardModel;
+    
 
     bool HunterMode = false;
     Transform Player;
@@ -33,12 +36,12 @@ public class Enemy : MonoBehaviour {
             if (Vector3.Distance(transform.position, Player.position) > 2f)
             { path = Astar.GetPath(transform.position, Player.position); }
         }
-        transform.rotation = Quaternion.Euler(-90, 0, Mathf.Atan2(path[WayPoint].y - transform.position.y, path[WayPoint].x - transform.position.x) * Mathf.Rad2Deg);//Quaternion.LookRotation(path[WayPoint] - transform.position);
+        transform.rotation = Quaternion.Euler(-90, 0, Mathf.Atan2(path[WayPoint].y - path[WayPoint-1].y, path[WayPoint].x - path[WayPoint-1].x) * Mathf.Rad2Deg);//Quaternion.LookRotation(path[WayPoint] - transform.position);
         Vector3 Translation = path[WayPoint] - transform.position;
         Translation = new Vector3(Translation.x, 0, Translation.z);
         Translation.Normalize();
         transform.Translate(Translation * Speed * Time.deltaTime, Space.World);
-		if(Vector3.Distance(transform.position, path[WayPoint]) < 1.1f)
+		if(Vector3.Distance(transform.position, path[WayPoint]) < 1.2f)
         {
             I++;
             if (I >= path.Length && !HunterMode)
@@ -47,6 +50,7 @@ public class Enemy : MonoBehaviour {
                 {
                     k.SendMessage("ChangeMode", false);
                 }
+                GameObject.Find("Spawner").GetComponent<WaveSpawner>().EnemiesAlive--;
                 Destroy(gameObject);
             }
             else if (I >= path.Length && HunterMode)
@@ -68,11 +72,11 @@ public class Enemy : MonoBehaviour {
                 if (k.transform.childCount == 0)
                 { k.SendMessage("ChangeMode", true); }
             }
+            Target = new Vector3(Mathf.Sign(Random.Range(-1.0f, 1.0f)) * 10, 0, Mathf.Sign(Random.Range(-1.0f, 1.0f)) * 10);
+            path = Astar.GetPath(transform.position, Target);
+            I = 0;
+            WayPoint = 0;
         }
-        Target = new Vector3(Mathf.Sign(Random.Range(-1.0f, 1.0f)) * 10, 0, Mathf.Sign(Random.Range(-1.0f, 1.0f)) * 10);
-        path = Astar.GetPath(transform.position, Target);
-        I = 0;
-        WayPoint = 0;
     }
 
     void GetDmg(float dmg)
@@ -92,6 +96,9 @@ public class Enemy : MonoBehaviour {
                 }
                 transform.GetChild(0).parent = this.transform.parent;
             }
+            GameObject.Find("Spawner").GetComponent<WaveSpawner>().EnemiesAlive--;
+            GameObject GO =(GameObject)Instantiate(RewardModel, transform.position, Quaternion.identity);
+            GO.name = Reward;
             Destroy(gameObject);
         }
     }
