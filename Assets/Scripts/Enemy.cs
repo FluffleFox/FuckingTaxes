@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour {
 	void Start () {
         Target = GameObject.Find("Sejf").transform.position;
         Astar = GameObject.Find("AstarMenager").GetComponent<Grid>();
-        path=Astar.GetPath(transform.position, Target);
+  //      path=Astar.GetPath(transform.position, Target);
         Player = GameObject.Find("Player").transform;
         GetComponent<Animator>().SetBool("walk", true);
     }
@@ -33,17 +33,17 @@ public class Enemy : MonoBehaviour {
 	void Update () {
         if (HunterMode)
         {
-            if (Vector3.Distance(transform.position, Player.position) > 2f)
-            { path = Astar.GetPath(transform.position, Player.position); }
+  //          if (Vector3.Distance(transform.position, Player.position) > 2f)
+   //         { path = Astar.GetPath(transform.position, Player.position); }
         }
         //transform.rotation = Quaternion.Euler(-90, 0, Mathf.Atan2(path[WayPoint].y - path[WayPoint-1].y, path[WayPoint].x - path[WayPoint-1].x) * Mathf.Rad2Deg);//Quaternion.LookRotation(path[WayPoint] - transform.position);
         Vector3 Translation = path[WayPoint] - transform.position;
         Translation = new Vector3(Translation.x, 0, Translation.z);
         Translation.Normalize();
         transform.Translate(Translation * Speed * Time.deltaTime, Space.World);
-		if(Vector3.Distance(transform.position, path[WayPoint]) < 1.1f)
+		if(Vector3.Distance(transform.position, path[WayPoint]) < 0.8f)
         {
-            I++;
+             I++;
             if (I >= path.Length && !HunterMode)
             {
                 foreach (GameObject k in GameObject.FindGameObjectsWithTag("Enemy"))
@@ -51,8 +51,6 @@ public class Enemy : MonoBehaviour {
                     k.SendMessage("ChangeMode", false);
                 }
                 GameObject.Find("Spawner").GetComponent<WaveSpawner>().EnemiesAlive--;
-
-                Destroy(gameObject);
             }
             else if (I >= path.Length && HunterMode)
             { WayPoint = 0;  path[0] = Player.position; }
@@ -65,6 +63,7 @@ public class Enemy : MonoBehaviour {
     {
         if (other.tag == "Finish")
         {
+            Debug.Log("Sejf");
             other.transform.parent = this.transform;
             other.GetComponent<Collider>().enabled = false;
             other.transform.localPosition = new Vector3(0, 0, 0.5f);
@@ -74,7 +73,7 @@ public class Enemy : MonoBehaviour {
                 { k.SendMessage("ChangeMode", true); }
             }
             Target = new Vector3(Mathf.Sign(Random.Range(-1.0f, 1.0f)) * 10, 0, Mathf.Sign(Random.Range(-1.0f, 1.0f)) * 10);
-            path = Astar.GetPath(transform.position, Target);
+ //           path = Astar.GetPath(transform.position, Target);
             I = 0;
             WayPoint = 0;
         }
@@ -110,7 +109,7 @@ public class Enemy : MonoBehaviour {
         if (!HunterMode)
         {
             Target = new Vector3(Mathf.Sign(Random.Range(-1.0f, 1.0f)) * 10, 0, Mathf.Sign(Random.Range(-1.0f, 1.0f)) * 10);
-            path = Astar.GetPath(transform.position, Target);
+ //           path = Astar.GetPath(transform.position, Target);
         }
         I = 0;
         WayPoint = 0;

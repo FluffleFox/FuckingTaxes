@@ -19,6 +19,7 @@ public class WaveSpawner : MonoBehaviour
 
     void Update()
     {
+        EnemiesAlive = GameObject.FindGameObjectsWithTag("Enemy").Length;
         if (EnemiesAlive > 0)
         {
             return;
@@ -33,7 +34,7 @@ public class WaveSpawner : MonoBehaviour
             waveIndex = waves.Length - 1;
         }
 
-        if (EnemiesAlive>0 && countdown <= 0)
+        if (EnemiesAlive<=0 && countdown <= 0)
         {
             countdown = timeBetweenWaves;
             return;

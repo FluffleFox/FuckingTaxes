@@ -7,27 +7,14 @@ public class Turret : MonoBehaviour {
     public GameObject mainCanon;
     public GameObject rotateBase;
 
-    public GameObject target;
+    //public GameObject target;
     public float range = 10f;
 
     private void Update()
     {
-        float Dist = Mathf.Infinity;
-        Collider[] Obj = Physics.OverlapSphere(transform.position, range);
-        foreach (Collider k in Obj)
-        {
-            if (Vector3.Distance(k.transform.position, transform.position) < Dist)
-            {
-                if (k.tag == "Enemy")
-                {
-                    Dist = Vector3.Distance(k.transform.position, transform.position);
-                    target = k.gameObject;
-                }
-            }
-        }
-
-        if(target != null) this.LookAtTarget(target.transform.position);
-
+        Vector3 Look = Camera.main.ScreenToViewportPoint(Input.mousePosition)*2f+Camera.main.transform.forward;
+        Look.x *= -1.0f;
+        this.LookAtTarget(Look);
     }
 
 

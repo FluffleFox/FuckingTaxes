@@ -92,15 +92,11 @@ public class Grid : MonoBehaviour
         }
     }
 
-    public Vector3[] GetPath(Vector3 Start, Vector3 End)
+    public Vector3 GetPath(Vector3 Start, Vector3 End)
     {
         GetComponent<PathFinding>().FindPath(Start, End);
-        path.ToArray();
-        Vector3[] ret = new Vector3[path.Count];
-        for(int i=0; i<path.Count; i++)
-        {
-            ret[i] = path[i].worldPosition;
-        }
-        return ret;
+        if (path.Count >= 1)
+        { return path[0].worldPosition; }
+        else return End;
     }
 }
