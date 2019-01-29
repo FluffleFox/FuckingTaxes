@@ -452,8 +452,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0fb67524b5e7314ab3984bb57a823a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 2.5
-  HP: 10
+  Speed: 1
+  HP: 5
   Reward: 50
   RewardModel: {fileID: 1980638721808616, guid: 6604f6038afabb04fab14e4a0bc3fd5c,
     type: 2}

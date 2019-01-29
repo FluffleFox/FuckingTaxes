@@ -37,7 +37,7 @@ public class BulidMenager : MonoBehaviour {
                 if (Vector3.Distance(transform.position, HitInfo.point) < 4 && !Physics.CheckBox(new Vector3(Mathf.RoundToInt(HitInfo.point.x), 1, Mathf.RoundToInt(HitInfo.point.z)), Vector3.one * 0.3f, Quaternion.Euler(Vector3.zero)))
                 {
                     Model.GetComponent<MeshRenderer>().material = Correct;
-                    Model.transform.position = new Vector3(Mathf.RoundToInt(HitInfo.point.x), 1, Mathf.RoundToInt(HitInfo.point.z));
+                    Model.transform.position = new Vector3(HitInfo.point.x, 1, HitInfo.point.z); //new Vector3(Mathf.RoundToInt(HitInfo.point.x), 1, Mathf.RoundToInt(HitInfo.point.z));
                     if (Input.GetMouseButtonDown(0) && budget.Value>=Current.Cost)
                     {
                         Instantiate(Current.Prefab, Model.transform.position, Quaternion.identity);
@@ -49,11 +49,11 @@ public class BulidMenager : MonoBehaviour {
                 else
                 {
                     Model.GetComponent<MeshRenderer>().material = Incorrect;
-                    Model.transform.position = new Vector3(Mathf.RoundToInt(HitInfo.point.x), 1, Mathf.RoundToInt(HitInfo.point.z));
+                    Model.transform.position = new Vector3(HitInfo.point.x, 1, HitInfo.point.z); //new Vector3(Mathf.RoundToInt(HitInfo.point.x), 1, Mathf.RoundToInt(HitInfo.point.z));
                 }
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(0)) { Destroy(Model); this.enabled = false; }
+        if (Input.GetMouseButtonDown(1)) { Destroy(Model); this.enabled = false; }
     }
 }

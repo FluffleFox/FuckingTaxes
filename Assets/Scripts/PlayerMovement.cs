@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour {
             GetComponent<Animator>().SetBool("walk", true);
         }
         else { GetComponent<Animator>().SetBool("walk", false); }
-        if (Sejf == null) { Debug.Log("GameOver"); }
+        if (Sejf == null) { Destroy(this); GameObject.Find("HUD").SendMessage("GameOver"); }
     }
 
     private void OnTriggerEnter(Collider other)

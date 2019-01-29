@@ -30,6 +30,14 @@ ModelImporter:
     2100012: Material_003__textura_png
     2100014: Material_005__textura_png
     2100016: Material_002__textura_png
+    2100018: None__MainEnemyTex_png_001
+    2100020: Material_004__BasicTex_png
+    2100022: Material_007__BasicTex_png
+    2100024: Material_006__BasicTex_png
+    2100026: Material__BasicTex_png
+    2100028: Material_003__BasicTex_png
+    2100030: Material_005__BasicTex_png
+    2100032: Material_002__BasicTex_png
     2300000: Cube
     2300002: Cube_001
     2300004: Cube_002
@@ -128,7 +136,6 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
-    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
