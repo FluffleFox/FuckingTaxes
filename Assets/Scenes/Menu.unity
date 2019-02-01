@@ -416,6 +416,21 @@ Prefab:
       propertyPath: rotateBase
       value: 
       objectReference: {fileID: 568523307}
+    - target: {fileID: 23164569021086174, guid: 4ac8bbc0e766af44d83c8d1bdcee097d,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1b8e7fc7cbfee0b448848b17bf0feea8, type: 2}
+    - target: {fileID: 23671842301688750, guid: 4ac8bbc0e766af44d83c8d1bdcee097d,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1b8e7fc7cbfee0b448848b17bf0feea8, type: 2}
+    - target: {fileID: 23026846334926376, guid: 4ac8bbc0e766af44d83c8d1bdcee097d,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1b8e7fc7cbfee0b448848b17bf0feea8, type: 2}
     m_RemovedComponents:
     - {fileID: 114018172069856834, guid: 4ac8bbc0e766af44d83c8d1bdcee097d, type: 2}
     - {fileID: 114102321101867836, guid: 4ac8bbc0e766af44d83c8d1bdcee097d, type: 2}
@@ -1391,7 +1406,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d8f3488342cd26142a96907a5a4fdd12, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -11,11 +11,15 @@ public class Tower : MonoBehaviour {
     public GameObject mainCanon;
     public GameObject rotateBase;
     Transform Target;
+    public ParticleSystem particle;
 
     private void Start()
     {
         reload = Reload;
+        //particle = GetComponentInChildren<ParticleSystem>();
+        particle.Pause();
     }
+
 
     void Update () {
 
@@ -36,21 +40,27 @@ public class Tower : MonoBehaviour {
         if (Target != null)
         {
             RaycastHit Hitinfo;
-            if (Physics.Raycast(new Ray(transform.position, Target.position - transform.position), out Hitinfo, Range))
+            if (Physics.Raycast(new Ray(transform.position, transform.forward), out Hitinfo, Range))
             {
-                if (Hitinfo.collider.gameObject.tag == "Enemy" && reload <= 0)
+                if (Hitinfo.collider.gameObject.tag == "Enemy")
                 {
+                    particle.Play();
+                    Debug.Log("Particle");
                     Target = Hitinfo.collider.gameObject.transform;
-                    Target.SendMessage("GetDmg", DMG);
-                    reload = Reload;
+                    if (reload <= 0)
+                    {
+                        Target.SendMessage("GetDmg", DMG);
+                        reload = Reload;
+                    }
                 }
             }
-            //transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Target.position - transform.position), 5 * Time.deltaTime);
             this.LookAtTarget(Target.transform.position);
             if (reload > 0) { reload -= Time.deltaTime; }
             if (Vector3.Distance(transform.position, Target.position) > Range) { Target = null; }
         }
-	}
+        else { particle.Stop(); Debug.Log("Stop"); }
+        Debug.DrawLine(transform.position, transform.position + transform.forward, Color.red);
+    }
 
 
 

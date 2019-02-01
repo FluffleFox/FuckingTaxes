@@ -31,7 +31,7 @@ public class Grid : MonoBehaviour
             for (int y = 0; y < gridSizeY; y++)
             {
                 Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
-                bool walkable = !(Physics.CheckBox(worldPoint, new Vector3(0.45f,2f,0.45f), Quaternion.Euler(0,0,0), unwalkableMask));
+                bool walkable = !(Physics.CheckBox(worldPoint, new Vector3(0.45f, 2f, 0.45f), Quaternion.Euler(0, 0, 0), unwalkableMask));
                 grid[x, y] = new Node(walkable, worldPoint, x, y);
             }
         }
@@ -64,14 +64,31 @@ public class Grid : MonoBehaviour
 
     public Node NodeFromWorldPoint(Vector3 worldPosition)
     {
-        float percentX = ((worldPosition.x-0.5f) + gridWorldSize.x / 2) / gridWorldSize.x;
-        float percentY = ((worldPosition.z-0.5f) + gridWorldSize.y / 2) / gridWorldSize.y;
+        float percentX = ((worldPosition.x - 0.5f) + gridWorldSize.x / 2) / gridWorldSize.x;
+        float percentY = ((worldPosition.z - 0.5f) + gridWorldSize.y / 2) / gridWorldSize.y;
         percentX = Mathf.Clamp01(percentX);
         percentY = Mathf.Clamp01(percentY);
 
         int x = Mathf.RoundToInt((gridSizeX - 1) * percentX);
         int y = Mathf.RoundToInt((gridSizeY - 1) * percentY);
-        return grid[x, y];
+
+        //return grid[x, y];
+        if (grid[x, y].walkable)
+        { return grid[x, y]; }
+        else
+        {
+            float dist = Mathf.Infinity;
+            Node ret = grid[x, y];
+            foreach (Node k in GetNeighbours(grid[x, y]))
+            {
+                if (k.walkable && Vector3.Distance(worldPosition, k.worldPosition) < dist)
+                {
+                    dist = Vector3.Distance(worldPosition, k.worldPosition);
+                    ret = k;
+                }
+            }
+            return ret;
+        }
     }
 
     public List<Node> path;
@@ -98,5 +115,35 @@ public class Grid : MonoBehaviour
         if (path.Count >= 1)
         { return path[0].worldPosition; }
         else return End;
+    }
+
+
+
+
+    public int[] NodeIndexFromWorldPoint(Vector3 worldPosition)
+    {
+        float percentX = ((worldPosition.x - 0.5f) + gridWorldSize.x / 2) / gridWorldSize.x;
+        float percentY = ((worldPosition.z - 0.5f) + gridWorldSize.y / 2) / gridWorldSize.y;
+        percentX = Mathf.Clamp01(percentX);
+        percentY = Mathf.Clamp01(percentY);
+
+        int x = Mathf.RoundToInt((gridSizeX - 1) * percentX);
+        int y = Mathf.RoundToInt((gridSizeY - 1) * percentY);
+        int[] ret = { x, y };
+        return ret;
+    }
+
+    public bool GetStateByIndex(int x, int y)
+    {
+        if (x >= 0 && x < gridSizeX && y >= 0 && y < gridSizeY)
+        {
+            return !grid[x, y].walkable;
+        }
+        else return false;
+    }
+
+    public void SetNode(int x, int y, bool status)
+    {
+        grid[x, y].walkable = status;
     }
 }

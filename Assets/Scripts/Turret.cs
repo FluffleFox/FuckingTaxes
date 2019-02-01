@@ -12,7 +12,7 @@ public class Turret : MonoBehaviour {
 
     private void Update()
     {
-        Vector3 Look = Camera.main.ScreenToViewportPoint(Input.mousePosition)*2f+Camera.main.transform.forward;
+        Vector3 Look = Camera.main.ScreenToViewportPoint(Input.mousePosition)*2f+Camera.main.transform.forward - Camera.main.transform.position;
         Look.x *= -1.0f;
         this.LookAtTarget(Look);
     }

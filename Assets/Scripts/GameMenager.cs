@@ -14,6 +14,23 @@ public class GameMenager : MonoBehaviour {
     Vector3 StartTowerDestiny;
     Vector3 StartOverDestiny;
 
+
+    public Canvas Turret;
+    public Canvas Trap;
+    public Canvas House;
+
+
+
+    [System.Serializable]
+    public struct BulidMenuState
+    {
+        public bool Turret;
+        public bool Trap;
+        public bool House;
+    }
+
+    public BulidMenuState[] State;
+
     private void Start()
     {
         StartOverDestiny= GameOverCanvas.position;
@@ -41,7 +58,17 @@ public class GameMenager : MonoBehaviour {
 
     IEnumerator End() {
         //GameObject.Find("Player").GetComponent<Animator>().SetBool("GameOver", true);
+        Destroy(GameObject.Find("Spawner"));
         yield return new WaitForSeconds(2f);
         OverDestiny = StartOverDestiny +new Vector3(0,-528f,0);
     }
+
+    public void ChangeState(int st)
+    {
+        Trap.enabled = State[st].Trap;
+        Turret.enabled = State[st].Turret;
+        House.enabled = State[st].House;
+    }
+
+
 }

@@ -1,15 +1,16 @@
 fileFormatVersion: 2
-guid: e81763b1bab3b904eb84cf6b7ace3c18
+guid: 14011f338b00b4644994f44f3464bb6a
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2100000: No Name
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Cube
-    6400000: //RootNode
+    100000: PowerSupply
+    100002: //RootNode
+    400000: PowerSupply
+    400002: //RootNode
+    2100000: palette
+    2300000: PowerSupply
+    3300000: PowerSupply
+    4300000: PowerSupply
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -41,9 +42,9 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 50
+    globalScale: 0.03
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     importVisibility: 0
     importBlendShapes: 0
     importCameras: 0

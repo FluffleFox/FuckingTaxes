@@ -12,6 +12,8 @@ public class BulidMenager : MonoBehaviour {
     BuildMenager.Build Current;
     Budget budget;
 
+    public LayerMask Mask;
+
     private void Start()
     {
         budget = GameObject.Find("HUD").GetComponent<Budget>();
@@ -29,27 +31,31 @@ public class BulidMenager : MonoBehaviour {
     private void Update()
     {
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-        RaycastHit HitInfo;
-        if (Physics.Raycast(ray, out HitInfo))
+        if(Physics.RaycastAll(ray).Length>0)
         {
+            Vector3 point = Physics.RaycastAll(ray)[0].point;
+            foreach(RaycastHit k in Physics.RaycastAll(ray))
+            {
+                if (k.collider.tag == "Ground") { point = k.point; break; }
+            }
             if (Model != null)
             {
-                if (Vector3.Distance(transform.position, HitInfo.point) < 4 && !Physics.CheckBox(new Vector3(Mathf.RoundToInt(HitInfo.point.x), 1, Mathf.RoundToInt(HitInfo.point.z)), Vector3.one * 0.3f, Quaternion.Euler(Vector3.zero)))
+                if (Vector3.Distance(transform.position, point) < 4 && Physics.OverlapSphere(new Vector3(point.x, 1, point.z), 0.3f).Length==0)
                 {
                     Model.GetComponent<MeshRenderer>().material = Correct;
-                    Model.transform.position = new Vector3(HitInfo.point.x, 1, HitInfo.point.z); //new Vector3(Mathf.RoundToInt(HitInfo.point.x), 1, Mathf.RoundToInt(HitInfo.point.z));
+                    if (Current.Quantize) { Model.transform.position = new Vector3(Mathf.RoundToInt(point.x), 1, Mathf.RoundToInt(point.z)); }
+                    else { Model.transform.position = new Vector3(point.x, 1, point.z); }
                     if (Input.GetMouseButtonDown(0) && budget.Value>=Current.Cost)
                     {
                         Instantiate(Current.Prefab, Model.transform.position, Quaternion.identity);
                         GameObject.Find("HUD").SendMessage("ChangeValue", -Current.Cost);
                        
                     }
-                    //Debug.Log();
                 }
                 else
                 {
                     Model.GetComponent<MeshRenderer>().material = Incorrect;
-                    Model.transform.position = new Vector3(HitInfo.point.x, 1, HitInfo.point.z); //new Vector3(Mathf.RoundToInt(HitInfo.point.x), 1, Mathf.RoundToInt(HitInfo.point.z));
+                    Model.transform.position = new Vector3(point.x, 1, point.z); 
                 }
             }
         }

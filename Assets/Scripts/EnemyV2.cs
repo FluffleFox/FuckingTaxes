@@ -80,15 +80,18 @@ public class EnemyV2 : MonoBehaviour {
         HP -= dmg;
         if (HP <= 0)
         {
-            if (transform.GetChild(0).name == "Sejf")
+            if(transform.Find("Sejf")!=null)
+            //if (transform.GetChild(0).name == "Sejf")
             {
-                transform.GetChild(0).position = new Vector3(Mathf.RoundToInt(transform.position.x), 1, Mathf.RoundToInt(transform.position.z));
-                transform.GetChild(0).GetComponent<Collider>().enabled = true;
-                transform.GetChild(0).rotation = Quaternion.Euler(Vector3.zero);
-                transform.GetChild(0).parent = this.transform.parent;
+                Transform k = transform.Find("Sejf");
+                /*transform.GetChild(0)*/k.position = new Vector3(Mathf.RoundToInt(transform.position.x), 1, Mathf.RoundToInt(transform.position.z));
+                /*transform.GetChild(0)*/k.GetComponent<Collider>().enabled = true;
+                /*transform.GetChild(0)*/k.rotation = Quaternion.Euler(Vector3.zero);
+                /*transform.GetChild(0)*/k.parent = this.transform.parent;
             }
             GameObject GO = (GameObject)Instantiate(RewardModel, transform.position, Quaternion.identity);
             GO.name = Reward.ToString();
+            Destroy(GO, 3f);
             Destroy(gameObject);
         }
     }

@@ -1,69 +1,32 @@
 fileFormatVersion: 2
-guid: 6e11eed7159017a40ae6f5cf358e83dd
+guid: 3a49887c9672a584c844cf9552103ada
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: Cube
-    100002: Cube_001
-    100004: Cube_002
-    100006: Cube_003
-    100008: Cube_004
-    100010: Cube_005
-    100012: Cube_006
-    100014: Cube_007
-    100016: //RootNode
+    100002: Cube.001
+    100004: Cube.002
+    100006: //RootNode
     400000: Cube
-    400002: Cube_001
-    400004: Cube_002
-    400006: Cube_003
-    400008: Cube_004
-    400010: Cube_005
-    400012: Cube_006
-    400014: Cube_007
-    400016: //RootNode
-    2100000: None__MainEnemyTex_png
-    2100002: unnamed
-    2100004: Material_004__textura_png
-    2100006: Material_007__textura_png
-    2100008: Material_006__textura_png
-    2100010: Material__textura_png
-    2100012: Material_003__textura_png
-    2100014: Material_005__textura_png
-    2100016: Material_002__textura_png
-    2100018: None__MainEnemyTex_png_001
-    2100020: Material_004__BasicTex_png
-    2100022: Material_007__BasicTex_png
-    2100024: Material_006__BasicTex_png
-    2100026: Material__BasicTex_png
-    2100028: Material_003__BasicTex_png
-    2100030: Material_005__BasicTex_png
-    2100032: Material_002__BasicTex_png
+    400002: Cube.001
+    400004: Cube.002
+    400006: //RootNode
+    2100000: Material.006
+    2100002: Material
+    2100004: Material.002
+    2100006: Material.004
+    2100008: Material.005
+    2100010: Material.001
+    2100012: Material.003
     2300000: Cube
-    2300002: Cube_001
-    2300004: Cube_002
-    2300006: Cube_003
-    2300008: Cube_004
-    2300010: Cube_005
-    2300012: Cube_006
-    2300014: Cube_007
+    2300002: Cube.001
+    2300004: Cube.002
     3300000: Cube
-    3300002: Cube_001
-    3300004: Cube_002
-    3300006: Cube_003
-    3300008: Cube_004
-    3300010: Cube_005
-    3300012: Cube_006
-    3300014: Cube_007
-    4300000: Cube_007
-    4300002: Cube_006
-    4300004: Cube_005
-    4300006: Cube_004
-    4300008: Cube_003
-    4300010: Cube_002
-    4300012: Cube_001
-    4300014: Cube
-    7400000: Default Take
-    9500000: //RootNode
+    3300002: Cube.001
+    3300004: Cube.002
+    4300000: Cube.002
+    4300002: Cube.001
+    4300004: Cube
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -92,22 +55,22 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 25
     meshCompression: 0
     addColliders: 0
-    importVisibility: 1
-    importBlendShapes: 1
-    importCameras: 1
-    importLights: 1
+    importVisibility: 0
+    importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
+    optimizeMeshForGPU: 0
     keepQuads: 0
-    weldVertices: 1
+    weldVertices: 0
     preserveHierarchy: 0
     indexFormat: 0
     secondaryUVAngleDistortion: 8
@@ -116,7 +79,7 @@ ModelImporter:
     secondaryUVPackMargin: 4
     useFileScale: 1
     previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -140,7 +103,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

@@ -455,7 +455,7 @@ MonoBehaviour:
   Speed: 1
   HP: 3
   Reward: 50
-  RewardModel: {fileID: 1980638721808616, guid: 6604f6038afabb04fab14e4a0bc3fd5c,
+  RewardModel: {fileID: 1391868570164652, guid: 2f62be0fa52a64442943d8b814a5c687,
     type: 2}
 --- !u!136 &136002879692588822
 CapsuleCollider:
