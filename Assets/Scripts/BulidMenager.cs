@@ -24,7 +24,6 @@ public class BulidMenager : MonoBehaviour {
         Current = GameObject.Find("HUD").GetComponent<BuildMenager>().CurrentBuild;
         GameObject GO = (GameObject)Instantiate(Current.Model, new Vector3(0, -1, 0), Quaternion.identity);
         Model = GO;
-
     }
 
 
@@ -40,8 +39,20 @@ public class BulidMenager : MonoBehaviour {
             }
             if (Model != null)
             {
-                if (Vector3.Distance(transform.position, point) < 4 && Physics.OverlapSphere(new Vector3(point.x, 1, point.z), 0.3f).Length==0)
+                if(Model.GetComponent<Request>().Possible && Input.GetMouseButtonDown(0) && budget.Value >= Current.Cost)
                 {
+                    Instantiate(Current.Prefab, Model.GetComponent<Request>().Position, Model.GetComponent<Request>().Rotation);
+                    GameObject.Find("HUD").SendMessage("ChangeValue", -Current.Cost);
+                }
+                Model.transform.position = new Vector3(point.x, 1, point.z);
+                /*bool Possible = true;
+                if(Vector3.Distance(transform.position, point) > 4) { Possible = false; }
+                if(Physics.OverlapSphere(new Vector3(point.x, 1, point.z), 0.3f).Length != 0) { Possible = false; }
+
+
+                if (Possible)
+                {
+                    
                     Model.GetComponent<MeshRenderer>().material = Correct;
                     if (Current.Quantize) { Model.transform.position = new Vector3(Mathf.RoundToInt(point.x), 1, Mathf.RoundToInt(point.z)); }
                     else { Model.transform.position = new Vector3(point.x, 1, point.z); }
@@ -56,7 +67,7 @@ public class BulidMenager : MonoBehaviour {
                 {
                     Model.GetComponent<MeshRenderer>().material = Incorrect;
                     Model.transform.position = new Vector3(point.x, 1, point.z); 
-                }
+                }*/
             }
         }
 

@@ -10,8 +10,8 @@ public class BuildMenager : MonoBehaviour {
         public GameObject Model;
         public GameObject Prefab;
         public int Cost;
-        public bool Quantize;
     }
+
 
     public Build[] TurretArray;
     public Build CurrentBuild;

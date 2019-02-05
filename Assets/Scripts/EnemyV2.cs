@@ -23,7 +23,7 @@ public class EnemyV2 : MonoBehaviour {
 	void Start () {
         Player = GameObject.Find("Player").transform;
         Sejf = GameObject.Find("Sejf").transform;
-        PathFinder = GameObject.Find("AstarMenager").GetComponent<Grid>();
+        PathFinder = GameObject.Find("AStarMenager").GetComponent<Grid>();
         Evac = transform.position;
         GetComponent<Animator>().SetBool("walk", true);
         Target = Evac;

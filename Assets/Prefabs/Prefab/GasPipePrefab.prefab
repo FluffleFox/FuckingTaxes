@@ -9,45 +9,46 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1183015907335426}
+  m_RootGameObject: {fileID: 1983885350873808}
   m_IsPrefabAsset: 1
---- !u!1 &1183015907335426
+--- !u!1 &1983885350873808
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4259493240266588}
-  - component: {fileID: 33831054377036972}
-  - component: {fileID: 23074571061361650}
-  - component: {fileID: 64266686389182574}
-  m_Layer: 2
-  m_Name: Door
-  m_TagString: Wall
+  - component: {fileID: 4944054642068040}
+  - component: {fileID: 33556120256871890}
+  - component: {fileID: 23705380463439092}
+  - component: {fileID: 65874160647247928}
+  - component: {fileID: 114166671258919396}
+  m_Layer: 17
+  m_Name: GasPipePrefab
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4259493240266588
+--- !u!4 &4944054642068040
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1183015907335426}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4, y: -0, z: 0}
+  m_GameObject: {fileID: 1983885350873808}
+  m_LocalRotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23074571061361650
+--- !u!23 &23705380463439092
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1183015907335426}
+  m_GameObject: {fileID: 1983885350873808}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -57,7 +58,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 44d1b9c6c0b1a4346a5442468735d6c1, type: 2}
+  - {fileID: 2100000, guid: e5ead60411b863a49bb8606ed35e38bd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -77,24 +78,41 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33831054377036972
+--- !u!33 &33556120256871890
 MeshFilter:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1183015907335426}
-  m_Mesh: {fileID: 4300008, guid: 6e11eed7159017a40ae6f5cf358e83dd, type: 3}
---- !u!64 &64266686389182574
-MeshCollider:
+  m_GameObject: {fileID: 1983885350873808}
+  m_Mesh: {fileID: 4300004, guid: c926c699b282a954f9282bed3efbc6a2, type: 3}
+--- !u!65 &65874160647247928
+BoxCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1183015907335426}
+  m_GameObject: {fileID: 1983885350873808}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300008, guid: 6e11eed7159017a40ae6f5cf358e83dd, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: -1, z: 0}
+--- !u!114 &114166671258919396
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1983885350873808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddc5de97c2402d342999cc6401294e9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mask:
+    serializedVersion: 2
+    m_Bits: 131072
+  Pipes:
+  - {fileID: 4300004, guid: c926c699b282a954f9282bed3efbc6a2, type: 3}
+  - {fileID: 4300002, guid: c926c699b282a954f9282bed3efbc6a2, type: 3}
+  - {fileID: 4300000, guid: c926c699b282a954f9282bed3efbc6a2, type: 3}
+  - {fileID: 4300006, guid: c926c699b282a954f9282bed3efbc6a2, type: 3}

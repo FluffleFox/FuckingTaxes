@@ -72,8 +72,8 @@ public class Grid : MonoBehaviour
         int x = Mathf.RoundToInt((gridSizeX - 1) * percentX);
         int y = Mathf.RoundToInt((gridSizeY - 1) * percentY);
 
-        //return grid[x, y];
-        if (grid[x, y].walkable)
+        return grid[x, y];
+       /* if (grid[x, y].walkable)
         { return grid[x, y]; }
         else
         {
@@ -88,7 +88,7 @@ public class Grid : MonoBehaviour
                 }
             }
             return ret;
-        }
+        }*/
     }
 
     public List<Node> path;
@@ -101,6 +101,7 @@ public class Grid : MonoBehaviour
             foreach (Node n in grid)
             {
                 Gizmos.color = (n.walkable) ? Color.white : Color.red;
+                Gizmos.color = (n.water) ? Color.blue : Color.white;
                 if (path != null)
                     if (path.Contains(n))
                         Gizmos.color = Color.black;
@@ -133,7 +134,16 @@ public class Grid : MonoBehaviour
         return ret;
     }
 
-    public bool GetStateByIndex(int x, int y)
+    public bool GetWallStateByIndex(int x, int y)
+    {
+        if (x >= 0 && x < gridSizeX && y >= 0 && y < gridSizeY)
+        {
+            return grid[x, y].wall;
+        }
+        else return false;
+    }
+
+    public bool GetWalkableStateByIndex(int x, int y)
     {
         if (x >= 0 && x < gridSizeX && y >= 0 && y < gridSizeY)
         {
@@ -141,6 +151,27 @@ public class Grid : MonoBehaviour
         }
         else return false;
     }
+
+    public bool GetWaterStateByIndex(int x, int y)
+    {
+        if (x >= 0 && x < gridSizeX && y >= 0 && y < gridSizeY)
+        {
+            return grid[x, y].water;
+        }
+        else return false;
+    }
+
+    public bool GetGazStateByIndex(int x, int y)
+    {
+        if (x >= 0 && x < gridSizeX && y >= 0 && y < gridSizeY)
+        {
+            return grid[x, y].gaz;
+        }
+        else return false;
+    }
+
+
+
 
     public void SetNode(int x, int y, bool status)
     {
